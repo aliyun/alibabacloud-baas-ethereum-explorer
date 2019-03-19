@@ -1,0 +1,16 @@
+td > div {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+body {
+  margin: 0;
+}
+
+@keyframes refresh {
+  0% {
+    transform: rotate(0turn)
+  }
+  100% {
+    transform: rotate(1turn)
+  }
+}
