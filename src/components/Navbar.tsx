@@ -62,6 +62,10 @@ const styles = (theme: Theme) => createStyles({
       },
     },
   },
+  inputTooltip: {
+    maxWidth: 300,
+    minWidth: 240
+  },
 });
 
 interface State {
@@ -136,18 +140,20 @@ class Navbar extends Component<Props, State> {
 
         <div className={classes.grow}> </div>
         <div className={classes.search}>
-          <Input spellCheck={false} error={error} type="search" classes={{ root: classes.inputRoot, input: classes.inputInput, }}
-            placeholder="Tx Hash, Address, or Block #" value={search}
-            onKeyUp={(event) => {
-              if (event.key === "Enter" && !error && search.length !== 0) {
-                this.search(search, history);
-              }
-            }}
-            onChange={(event) => {
-              const value = event.currentTarget.value.trim();
-              const match = value.match(/^((b|bl|block):)?([1-9]\d*)$|^((t|tx|b|bl|block):)?(0x[a-f0-9]+)$|^((a|add|address):)?(0x[a-f0-9A-F]+)$/);
-              this.setState({ search: value, error: (!match || !match[0]) && value.length !== 0 });
-            }} />
+          <Tooltip classes={{ tooltip: classes.inputTooltip, }} title={<span style={{ color: "yellow" }}>SUPPORT REGEXP:<br />  ((b|bl|block):)?([1-9]\d*)<br />  ((t|tx|b|bl|block):)?(0x[a-f0-9]+)<br />  ((a|add|address):)?(0x[a-f0-9A-F]+)</span>}>
+            <Input spellCheck={false} error={error} type="search" classes={{ root: classes.inputRoot, input: classes.inputInput, }}
+              placeholder="Tx Hash, Address, or Block #" value={search}
+              onKeyUp={(event) => {
+                if (event.key === "Enter" && !error && search.length !== 0) {
+                  this.search(search, history);
+                }
+              }}
+              onChange={(event) => {
+                const value = event.currentTarget.value.trim();
+                const match = value.match(/^((b|bl|block):)?([1-9]\d*)$|^((t|tx|b|bl|block):)?(0x[a-f0-9]+)$|^((a|add|address):)?(0x[a-f0-9A-F]+)$/);
+                this.setState({ search: value, error: (!match || !match[0]) && value.length !== 0 });
+              }} />
+          </Tooltip>
           <IconButton className={classes.searchIcon} disabled={error || search.length === 0} aria-label="Search" onClick={() => {
             this.search(search, history);
           }}>
