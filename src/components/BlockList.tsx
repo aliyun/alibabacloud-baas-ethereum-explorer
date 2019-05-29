@@ -27,7 +27,7 @@ class BlockList extends CommonList {
         <TableCell>{block.number}</TableCell>
         <TableCell>{block.transactions.length}</TableCell>
         <TableCell>{new Date(block.timestamp * 1000).toLocaleString()}</TableCell>
-        <TableCell component={Link} to={`/access/${block.miner}`}>{block.miner}</TableCell>
+        <TableCell component={Link} to={`/address/${block.miner}`}>{block.miner}</TableCell>
       </TableRow>
     });
   }
